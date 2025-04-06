@@ -3,8 +3,8 @@ import requests
 from bs4 import BeautifulSoup
 
 # We want to find the first price in the price ranges shown inside the text of the span we are extracting using the regex below
-pattern = re.compile("^[$][\d]{1,}.\d{2}")
-total=0
+pattern = re.compile("^[$][\\d]{1,}.[\\d]{2}")
+total = 0
 
 # List where we will store price ranges and extract regex later
 product_prices = []
@@ -25,11 +25,11 @@ prices2 = soup2.find_all('div', class_="product-pricing")
 
 # find the text inside each span
 for span in soup1.find_all("span", class_="product-sales-price"):
-    text = span.find(text=True,recursive=False)
+    text = span.string
     product_prices.append(text)
 
 for span in soup2.find_all("span", class_="product-sales-price"):
-    text = span.find(text=True,recursive=False)
+    text = span.string
     product_prices.append(text)
 
 
@@ -40,6 +40,6 @@ for price in product_prices:
 
 # todo: convert it to the greatest currency in the world before printing (£)
 total = round(total,2)
-print(f"${total}")
+print(f"Price of all Metallica discography in mp3 format comes to a total of: ${total}")
 
 
